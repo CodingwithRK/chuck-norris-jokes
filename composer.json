@@ -1,0 +1,25 @@
+{
+    "name": "codingwithrk/chuck-norris-jokes",
+    "description": "Create random Chuck Norris jokes",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Codingwithrk\\ChuckNorrisJokes\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Codingwithrk\\ChuckNorrisJokes\\Tests\\": "tests"
+        }
+    },
+    "authors": [
+        {
+            "name": "CodingwithRK",
+            "email": "pappalarajkumar@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^11.2"
+    }
+}
