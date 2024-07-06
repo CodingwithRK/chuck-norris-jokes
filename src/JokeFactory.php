@@ -2,26 +2,26 @@
 
 namespace Codingwithrk\ChuckNorrisJokes;
 
+use GuzzleHttp\Client;
+
 class JokeFactory
 {
+    const API_END = 'https://apis.codingwithrk.com/api/get-fake-users?limit=1&only=name';
 
-    protected $jokes = [
-        'The First rule of Chuck Norris is: you do not talk about Chuck Norris.',
-        'Chuck Norris does not wear a condom. Because there is no such thing as protection from Chuck Norris.',
-        'Chuck Norris\' tears cure cancer. Too bad he has never cried.',
-        'Chuck Norris counted to infinity... Twice.',
-    ];
+    protected $client;
 
-    public function __construct(array $jokes = null)
+    public function __construct(Client $client = null)
     {
-        if ($jokes) {
-            $this->jokes = $jokes;
-        }
+        $this->client = $client ?: new Client();
     }
 
     public function getRandomJoke()
     {
-        return $this->jokes[array_rand($this->jokes)];
+        $response = $this->client->get(self::API_END);
+
+        $joke =  json_decode($response->getBody()->getContents(), true);
+
+        return $joke['message'];
     }
 
 }

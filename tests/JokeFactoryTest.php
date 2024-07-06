@@ -3,33 +3,41 @@
 namespace Codingwithrk\ChuckNorrisJokes\Tests;
 
 use Codingwithrk\ChuckNorrisJokes\JokeFactory;
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class JokeFactoryTest extends TestCase
 {
-    /** @test */
+    #[Test]
     public function it_returns_a_random_joke()
     {
-        $jokes = new JokeFactory([
-            'This is a joke'
+
+        $mock = new MockHandler([
+            new Response(200, [], '{
+                  "status": "valid",
+                  "message": "Fake users are getting successfully",
+                  "total_count": 1,
+                  "data": [
+                    {
+                      "name": "Dr. Kiley D\'Amore Jr."
+                    }
+                  ]
+                }'
+            ),
         ]);
+
+        $handlerStack = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handlerStack]);
+
+        $jokes = new JokeFactory($client);
+
+
         $joke = $jokes->getRandomJoke();
 
-        $this->assertSame('This is a joke', $joke);
+        $this->assertSame('Fake users are getting successfully', $joke);
     }
-
-//    /** @test */
-//    public function it_returns_a_predefined_joke()
-//    {
-//        $chuckNorrisJokes = [
-//            'The First rule of Chuck Norris is: you do not talk about Chuck Norris.',
-//            'Chuck Norris does not wear a condom. Because there is no such thing as protection from Chuck Norris.',
-//            'Chuck Norris\' tears cure cancer. Too bad he has never cried.',
-//            'Chuck Norris counted to infinity... Twice.',
-//        ];
-//        $jokes = new JokeFactory();
-//        $joke = $jokes->getRandomJoke();
-//
-//        $this->assertContains($joke, $chuckNorrisJokes);
-//    }
 }
