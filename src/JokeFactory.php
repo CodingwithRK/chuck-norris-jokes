@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class JokeFactory
 {
-    const API_END = 'https://apis.codingwithrk.com/api/get-fake-users?limit=1&only=name';
+    const API_END = 'https://api.chucknorris.io/jokes/random';
 
     protected $client;
 
@@ -21,7 +21,7 @@ class JokeFactory
 
         $joke =  json_decode($response->getBody()->getContents(), true);
 
-        return $joke['message'];
+        return $joke['value'];
     }
 
 }

@@ -17,16 +17,7 @@ class JokeFactoryTest extends TestCase
     {
 
         $mock = new MockHandler([
-            new Response(200, [], '{
-                  "status": "valid",
-                  "message": "Fake users are getting successfully",
-                  "total_count": 1,
-                  "data": [
-                    {
-                      "name": "Dr. Kiley D\'Amore Jr."
-                    }
-                  ]
-                }'
+            new Response(200, [], '{"categories":[],"created_at":"2020-01-05 13:42:27.496799","icon_url":"https://api.chucknorris.io/img/avatar/chuck-norris.png","id":"FVhfOt4XQ4i7LIwTHVi5_Q","updated_at":"2020-01-05 13:42:27.496799","url":"https://api.chucknorris.io/jokes/FVhfOt4XQ4i7LIwTHVi5_Q","value":"Chuck Norris has a picture of himself standing in the Grand Canyon, shirtless, oiled up and holding two sub-machineguns, and surrounded by naked ladies on his passport photo."}'
             ),
         ]);
 
@@ -38,6 +29,6 @@ class JokeFactoryTest extends TestCase
 
         $joke = $jokes->getRandomJoke();
 
-        $this->assertSame('Fake users are getting successfully', $joke);
+        $this->assertSame('Chuck Norris has a picture of himself standing in the Grand Canyon, shirtless, oiled up and holding two sub-machineguns, and surrounded by naked ladies on his passport photo.', $joke);
     }
 }
